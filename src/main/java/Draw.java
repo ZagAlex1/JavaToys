@@ -1,11 +1,12 @@
 import Toys.Toys;
-import Toys.Robot;
-import Toys.Lego;
-import Toys.Doll;
 import Toys.ToyType;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 
 public class Draw {
 
@@ -28,15 +29,45 @@ public class Draw {
         return toy;
     }
 
-    public void addToyInPrizeList(Toys toy){
-        prizePool.add(toy);
+    public void addToyInPrizeList(Toys toy) {
+        if (toy == null) {
+            System.out.println("Список пуст");
+        } else {
+            prizePool.add(toy);
+        }
     }
 
-    public void printInfo(){
-        for (Toys toy: prizePool) {
-            toy.printInfo();
+    public void getPrizeToy() {
+        if (prizePool.size() == 0) {
+            System.out.println("\nПризовой список пуст!\n");
+            return;
         }
-        System.out.println();
-        System.out.println();
+
+        Toys prize = prizePool.removeFirst();
+        try {
+            File file = new File("src/main/java/prizeList.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+            String res = String.format("%s", prize.getClass().getSimpleName());
+            bw.write(res);
+            bw.newLine();
+            bw.close();
+            System.out.println("\nВыдача игрушки прошла успешно");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void printInfo() {
+        if (prizePool.size() == 0) {
+            System.out.println("Призовой список пуст.\nПроведите розыгрыш\n");
+        } else {
+            System.out.println("Тип призовой игрушки:\n");
+            for (Toys toy : prizePool) {
+                System.out.print(toy.getToyType() + "\t");
+            }
+            System.out.println();
+        }
     }
 }

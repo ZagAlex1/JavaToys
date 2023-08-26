@@ -3,10 +3,10 @@ package Toys;
 public class Lego extends Toys {
 
     private static int count;
-    protected static int dropPercentage;
+    private static double dropPercentage;
 
     public Lego() {
-        super(2, ToyType.Lego);
+        super(ToyType.Lego);
         count++;
     }
 
@@ -14,12 +14,17 @@ public class Lego extends Toys {
         return count;
     }
 
-    public static int getDropPercentage() {
+    public static double getDropPercentage() {
         return dropPercentage;
     }
 
-    @Override
-    public void printInfo() {
-        System.out.printf("\nНазвание : %s, Количество : %d, Процент выпадeния : %d", ToyType.Lego, count, dropPercentage);
+    public static void setDropPercentage(double percent) {
+        dropPercentage = Math.floor(percent);
     }
+
+    @Override
+    public void dellCount() {
+        count--;
+    }
+
 }

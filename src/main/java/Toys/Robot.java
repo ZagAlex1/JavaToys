@@ -1,11 +1,12 @@
 package Toys;
 
 public class Robot extends Toys {
+
     private static int count;
-    protected static int dropPercentage;
+    private static double dropPercentage;
 
     public Robot() {
-        super(1, ToyType.Robot);
+        super(ToyType.Robot);
         count++;
     }
 
@@ -13,12 +14,17 @@ public class Robot extends Toys {
         return count;
     }
 
-    public static int getDropPercentage() {
+    public static double getDropPercentage() {
         return dropPercentage;
     }
 
-    @Override
-    public void printInfo() {
-        System.out.printf("\nНазвание : %s, Количество : %d, Процент выпадeния : %d", ToyType.Robot, count, dropPercentage);
+    public static void setDropPercentage(double percent) {
+        dropPercentage = Math.floor(percent);
     }
+
+    @Override
+    public void dellCount() {
+        count--;
+    }
+
 }
